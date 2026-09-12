@@ -5,22 +5,26 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Bot, Briefcase, Mail, Send } from 'lucide-react'
 import { GooglePlayIcon } from '@/components/icons/google-play'
-import { projects } from '@/lib/projects'
+import { getProjects } from '@/lib/projects'
+import { useLanguage } from '@/components/language-provider'
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { cn } from '@/lib/utils'
-
-const socials = [
-  { href: 'https://play.google.com', label: 'Google Play', Icon: GooglePlayIcon },
-  { href: 'https://t.me', label: 'Telegram', Icon: Send },
-  { href: 'mailto:hello@example.com', label: 'Почта', Icon: Mail },
-]
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const { locale, t } = useLanguage()
+  const projects = getProjects(locale)
+
+  const socials = [
+    { href: 'https://play.google.com', label: t.social.googlePlay, Icon: GooglePlayIcon },
+    { href: 'https://t.me', label: t.social.telegram, Icon: Send },
+    { href: 'mailto:hello@example.com', label: t.social.email, Icon: Mail },
+  ]
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <nav
-        aria-label="Основная навигация"
+        aria-label={t.nav.home}
         className="glass mx-auto flex max-w-6xl items-center gap-2 rounded-2xl border border-border px-2 py-2 shadow-lg shadow-black/30 sm:gap-3 sm:px-3"
       >
         <ul className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto py-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:overflow-visible sm:py-0 [&::-webkit-scrollbar]:hidden">
@@ -28,8 +32,8 @@ export function SiteHeader() {
             <DockButton
               href="/"
               active={pathname === '/'}
-              label="Главная"
-              tooltip="Главная"
+              label={t.nav.home}
+              tooltip={t.nav.home}
             >
               <span className="font-sans text-lg font-medium tracking-tight text-primary sm:text-xl">
                 YS
@@ -41,8 +45,8 @@ export function SiteHeader() {
             <DockButton
               href="/services"
               active={pathname === '/services'}
-              label="Для бизнеса"
-              tooltip="Для бизнеса"
+              label={t.nav.business}
+              tooltip={t.nav.business}
             >
               <Briefcase className="size-5 text-primary" />
             </DockButton>
@@ -52,8 +56,8 @@ export function SiteHeader() {
             <DockButton
               href="/automation"
               active={pathname === '/automation'}
-              label="Автоматизация"
-              tooltip="Автоматизация"
+              label={t.nav.automation}
+              tooltip={t.nav.automation}
             >
               <Bot className="size-5 text-primary" />
             </DockButton>
@@ -79,7 +83,7 @@ export function SiteHeader() {
           ))}
         </ul>
 
-        <ul className="flex shrink-0 items-center gap-1 border-l border-border pl-1.5 sm:border-l-0 sm:pl-0">
+        <ul className="hidden shrink-0 items-center gap-1 sm:flex">
           {socials.map(({ href, label, Icon }) => (
             <li key={label}>
               <a
@@ -94,6 +98,8 @@ export function SiteHeader() {
             </li>
           ))}
         </ul>
+
+        <LanguageSwitcher className="shrink-0 border-l border-border pl-1.5 sm:ml-1 sm:border-l-0 sm:pl-1" />
       </nav>
     </header>
   )

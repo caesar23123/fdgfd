@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { ArrowDown } from 'lucide-react'
 import { TriangleField } from '@/components/triangle-field'
+import { useLanguage } from '@/components/language-provider'
 
 const arts = [
   { src: '/art/inventor.png', alt: 'Изобретатель за чертежами', pos: 'left-[4%] top-[26%]', size: 'w-28 sm:w-36 lg:w-48', depth: 26 },
@@ -13,6 +14,7 @@ const arts = [
 ]
 
 export function Hero() {
+  const { t } = useLanguage()
   const layerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -79,18 +81,18 @@ export function Hero() {
         </div>
 
         <h1 className="mt-8 text-4xl font-medium tracking-tight text-balance sm:text-6xl lg:text-7xl">
-          Мы — команда Юлиана
+          {t.hero.title}
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg">
-          Разрабатываем игры, а ещё интерактивные решения и автоматизацию для бизнеса. Ниже —
-          наши проекты.
+          {t.hero.subtitle}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] tracking-widest text-muted-foreground uppercase">
-          <span className="rounded-full border border-border px-3 py-1">Unity</span>
-          <span className="rounded-full border border-border px-3 py-1">C#</span>
-          <span className="rounded-full border border-border px-3 py-1">Game design</span>
-          <span className="rounded-full border border-border px-3 py-1">Android</span>
+          {t.hero.tags.map((tag) => (
+            <span key={tag} className="rounded-full border border-border px-3 py-1">
+              {tag}
+            </span>
+          ))}
         </div>
 
         <a
@@ -104,7 +106,7 @@ export function Hero() {
           }}
           className="mt-12 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:border-primary/60 hover:text-foreground"
         >
-          Проекты
+          {t.hero.cta}
           <ArrowDown className="size-3.5" />
         </a>
       </div>

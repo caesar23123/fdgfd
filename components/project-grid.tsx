@@ -1,20 +1,26 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '@/lib/projects'
+import { getProjects } from '@/lib/projects'
+import { useLanguage } from '@/components/language-provider'
 
 export function ProjectGrid() {
+  const { locale, t } = useLanguage()
+  const projects = getProjects(locale)
+
   return (
     <section id="projects" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-[25px]">
       <div className="flex flex-col gap-3">
         <span className="font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
-          02 — Проекты
+          {t.home.projects.eyebrow}
         </span>
         <h2 className="text-3xl font-medium tracking-tight text-balance sm:text-4xl">
-          Игры, которые мы делаем
+          {t.home.projects.title}
         </h2>
         <p className="max-w-xl leading-relaxed text-pretty text-muted-foreground">
-          Небольшие, но честные проекты: без агрессивной монетизации и таймеров ожидания.
+          {t.home.projects.subtitle}
         </p>
       </div>
 

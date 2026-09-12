@@ -1,8 +1,14 @@
+'use client'
+
 import Link from 'next/link'
 import { Mail, MapPin, Send } from 'lucide-react'
-import { projects } from '@/lib/projects'
+import { getProjects } from '@/lib/projects'
+import { useLanguage } from '@/components/language-provider'
 
 export function SiteFooter() {
+  const { locale, t } = useLanguage()
+  const projects = getProjects(locale)
+
   return (
     <footer className="border-t border-border">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-5 py-14 sm:flex-row sm:items-start sm:justify-between">
@@ -11,19 +17,18 @@ export function SiteFooter() {
             YS
           </span>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Игры, интерактивные решения и автоматизация для бизнеса. Пишите, если хотите обсудить
-            проект или просто сказать спасибо.
+            {t.footer.about}
           </p>
         </div>
 
-        <nav aria-label="Разделы сайта" className="flex flex-col gap-3">
+        <nav aria-label={t.footer.sections} className="flex flex-col gap-3">
           <span className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
-            Разделы
+            {t.footer.sections}
           </span>
           <ul className="flex flex-col gap-2 text-sm">
             <li>
               <Link href="/" className="text-muted-foreground transition-colors hover:text-foreground">
-                Главная
+                {t.nav.home}
               </Link>
             </li>
             <li>
@@ -31,7 +36,7 @@ export function SiteFooter() {
                 href="/services"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                Для бизнеса
+                {t.nav.business}
               </Link>
             </li>
             <li>
@@ -39,7 +44,7 @@ export function SiteFooter() {
                 href="/automation"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                Автоматизация
+                {t.nav.automation}
               </Link>
             </li>
             {projects.map((project) => (
@@ -57,7 +62,7 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-3">
           <span className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
-            Контакты
+            {t.footer.contacts}
           </span>
           <ul className="flex flex-col gap-2 text-sm">
             <li>
@@ -88,7 +93,7 @@ export function SiteFooter() {
                 className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <MapPin className="size-4" />
-                г. Москва, ул. Примерная, д. 1
+                {t.footer.address}
               </a>
             </li>
           </ul>
