@@ -1,39 +1,43 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-
-const directions = [
-  {
-    href: '/services',
-    image: '/art/service-configurator.png',
-    alt: 'Иллюстрация 3D-конфигуратора товара',
-    title: 'Для бизнеса',
-    tagline: 'Интерактивные решения на Unity',
-    tags: ['3D-конфигураторы', 'Симуляторы обучения', 'Виртуальные туры'],
-  },
-  {
-    href: '/automation',
-    image: '/art/auto-bot.png',
-    alt: 'Иллюстрация телеграм-бота с ИИ-агентом',
-    title: 'Автоматизация',
-    tagline: 'Боты, ИИ-агенты и интеграции',
-    tags: ['ИИ-агенты', '1С и маркетплейсы', 'Backend'],
-  },
-]
+import { useLanguage } from '@/components/language-provider'
 
 export function ServicesGrid() {
+  const { t } = useLanguage()
+
+  const directions = [
+    {
+      href: '/services',
+      image: '/art/service-configurator.png',
+      alt: t.home.more.business.title,
+      title: t.home.more.business.title,
+      tagline: t.home.more.business.tagline,
+      tags: t.home.more.business.tags,
+    },
+    {
+      href: '/automation',
+      image: '/art/auto-bot.png',
+      alt: t.home.more.automation.title,
+      title: t.home.more.automation.title,
+      tagline: t.home.more.automation.tagline,
+      tags: t.home.more.automation.tags,
+    },
+  ]
+
   return (
     <section id="more" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-24">
       <div className="flex flex-col gap-3">
         <span className="font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
-          03 — Ещё
+          {t.home.more.eyebrow}
         </span>
         <h2 className="text-3xl font-medium tracking-tight text-balance sm:text-4xl">
-          Чем ещё можем быть полезны
+          {t.home.more.title}
         </h2>
         <p className="max-w-xl leading-relaxed text-pretty text-muted-foreground">
-          Кроме игр мы делаем интерактивные решения и автоматизацию для бизнеса — тем же
-          составом и с тем же вниманием к деталям.
+          {t.home.more.subtitle}
         </p>
       </div>
 

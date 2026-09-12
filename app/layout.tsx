@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 const inter = Inter({
@@ -57,9 +58,11 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`bg-background ${inter.variable} ${jetbrains.variable}`}>
       <body className="font-sans antialiased">
-        <SiteHeader />
-        <main className="min-h-screen">{children}</main>
-        <SiteFooter />
+        <LanguageProvider>
+          <SiteHeader />
+          <main className="min-h-screen">{children}</main>
+          <SiteFooter />
+        </LanguageProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
